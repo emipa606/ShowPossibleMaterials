@@ -1,4 +1,4 @@
-# [Show Possible Materials]()
+# [Show Possible Materials](https://steamcommunity.com/sharedfiles/filedetails/?id=3338920230)
 
 ![Image](https://i.imgur.com/iCj5o7O.png)
 
@@ -28,4 +28,6 @@ Since modding is just a hobby for me I expect no donations to keep modding. If y
 -  If you have the solution for a problem, please post it to the GitHub repository.
 -  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
+[![Image](https://img.shields.io/github/v/release/emipa606/ShowPossibleMaterials?label=latest%20version&style=plastic&labelColor=0070cd&color=white)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3338920230) | tags:  materials
