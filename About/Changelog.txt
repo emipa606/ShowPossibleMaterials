@@ -1,5 +1,9 @@
 # Changelog for ShowPossibleMaterials
 
+1.6.1 - Added support for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3520130671]Nice Bill Tab[/url]
+Fixed recipes with no static ingredients
+
+
 1.6.0 - Mod updated for 1.6 and passed autotests
 
 

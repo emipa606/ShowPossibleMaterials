@@ -13,20 +13,26 @@ public static class Bill_Production_DoConfigInterface
 {
     public static void Prefix(Bill_Production __instance, Rect baseRect)
     {
+        AddIngredientLocations(__instance, baseRect);
+    }
+
+    public static void AddIngredientLocations(Bill bill, Rect rect)
+    {
         // Check if the Alt key is pressed and if the mouse is over the baseRect
-        if (!Mouse.IsOver(baseRect) || !Event.current.control)
+        if (!Mouse.IsOver(rect) || !Event.current.control)
         {
             return;
         }
 
-        if (__instance.recipe.ingredients == null || !__instance.recipe.ingredients.Any())
+        if (bill.recipe.ingredients == null || !bill.recipe.ingredients.Any())
         {
             return;
         }
 
         var foundThingDefs = new Dictionary<ThingDef, int>();
         var foundThings = new List<Thing>();
-        foreach (var recipeIngredient in __instance.recipe.ingredients)
+
+        foreach (var recipeIngredient in bill.recipe.ingredients)
         {
             if (!recipeIngredient.IsFixedIngredient)
             {
@@ -34,7 +40,7 @@ public static class Bill_Production_DoConfigInterface
             }
 
             foreach (var possibleIngredient in
-                     __instance.Map.listerThings.ThingsMatchingFilter(recipeIngredient.filter))
+                     bill.Map.listerThings.ThingsMatchingFilter(recipeIngredient.filter))
             {
                 if (!recipeIngredient.filter.Allows(possibleIngredient))
                 {
@@ -48,10 +54,11 @@ public static class Bill_Production_DoConfigInterface
             }
         }
 
+
         foreach (var possibleIngredient in
-                 __instance.Map.listerThings.ThingsMatchingFilter(__instance.ingredientFilter))
+                 bill.Map.listerThings.ThingsMatchingFilter(bill.recipe.fixedIngredientFilter))
         {
-            if (!__instance.ingredientFilter.Allows(possibleIngredient))
+            if (!bill.ingredientFilter.Allows(possibleIngredient))
             {
                 continue;
             }
@@ -61,6 +68,7 @@ public static class Bill_Production_DoConfigInterface
             foundThingDefs[possibleIngredient.def] += possibleIngredient.stackCount;
             foundThings.Add(possibleIngredient);
         }
+
 
         // If the right mouse button is clicked, marked all items in foundThings
         if (Event.current.button == 1)
@@ -77,7 +85,7 @@ public static class Bill_Production_DoConfigInterface
             return;
         }
 
-        TooltipHandler.TipRegion(baseRect,
+        TooltipHandler.TipRegion(rect,
             $"{"SPM.availableOnMap".Translate()}{Environment.NewLine}" +
             $"{foundThingDefs.Select(kvp => $"{kvp.Value}x {kvp.Key.LabelCap}").ToLineList()}{Environment.NewLine}" +
             $"{"SPM.clickToMark".Translate()}");
